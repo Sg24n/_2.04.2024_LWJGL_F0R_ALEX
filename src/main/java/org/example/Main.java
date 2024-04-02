@@ -33,7 +33,7 @@ public class Main {
         glLoadIdentity();
 
     //Добавление блока
-        Block block = new Block(100, 100, 50, 20, 1.0f, 1.0f, 1.0f); // Красный цвет
+        Block block = new Block(100, 100, 50, 20, 1.0f, 1.0f, 1.0f);
         while (!glfwWindowShouldClose(window)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
