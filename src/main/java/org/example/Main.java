@@ -20,15 +20,25 @@ public class Main {
             glfwTerminate();
             throw new RuntimeException("Window is broke :(");
         }
+
         //Настройка рендеринга окна
         glfwMakeContextCurrent(window);
-        glfwSwapInterval(1);  //ВКЛ верт синхр
         //Для использованмя opengl
         GL.createCapabilities();
+        //Создание ортограф проекции Чтоб OpenGL поняла где она, и куда рендерить.
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, 640, 480, 0,-1, 1);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
 
+    //Добавление блока
+        Block block = new Block(100, 100, 50, 20, 1.0f, 1.0f, 1.0f); // Красный цвет
         while (!glfwWindowShouldClose(window)) {
-            //очистка жкрана
+            //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            block.render();
 
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -41,3 +51,4 @@ public class Main {
     }
 
 }
+
