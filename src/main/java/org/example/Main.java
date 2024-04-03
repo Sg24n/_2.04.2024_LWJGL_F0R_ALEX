@@ -32,14 +32,19 @@ public class Main {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-    //Добавление блока
+    //Добавление блока шарика и missle
         Block block = new Block(100, 100, 50, 20, 1.0f, 1.0f, 1.0f);
+        Racket racket = new Racket(320, 400, 30, 10, 1.0f, 1.0f, 0.0f);
+        Ball ball = new Ball(320, 240, 15.0f, 0.0f, 0.0f, 0.5f, 0.7f,1.0f);
         while (!glfwWindowShouldClose(window)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             block.render();
-
+            ball.render();
+            racket.render();
+            
+            
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
