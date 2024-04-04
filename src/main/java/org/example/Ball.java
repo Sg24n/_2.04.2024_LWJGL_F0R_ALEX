@@ -4,9 +4,9 @@ public class Ball {
     private int width, height;
     private float r, g, b;
 
-    private float x, y;
-    private  final float radius;
-    private float velocityX, velocityY;
+    public float x, y;
+    public final float radius;
+    public float velocityX, velocityY;
 
     public Ball(int width, int height, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b){
         this.x = x;
@@ -27,16 +27,16 @@ public class Ball {
         x += velocityX;
         //Проверка колизий x and y
         if (x<= 0 || x + radius * 2 >=width){
-            velocityX = -velocityX;
+            if((velocityX/2)<= 0.5f){velocityX = -velocityX;} else {velocityX = -(velocityX/1.5f);}
         }
         if (y<=0 || y + radius*2 >= height){
-            velocityY = -velocityY;
+            if((velocityY/2)<= 0.5f){velocityY = -velocityY;} else {velocityY = -(velocityY/1.5f);}
         }
 
     }
     public void render(){
         glColor3f(r,g,b);
-        int segments = 7;
+        int segments = 40;
         glBegin(GL_POLYGON);
         for (int i = 0; i<segments; i++){
             //Тут математика какаято я не шарю просто переписал

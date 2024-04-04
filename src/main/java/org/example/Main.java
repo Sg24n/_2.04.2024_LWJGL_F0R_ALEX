@@ -1,13 +1,15 @@
 package org.example;
-import org.lwjgl.*;
-import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
-import org.lwjgl.system.*;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
+
+
+
+
     public void run() {
         //INIT  glfw
         if (!glfwInit()) {
@@ -55,12 +57,19 @@ public class Main {
             }
         });
 
+
+
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            if(checkBallCollision(ball, racket, block)) {
+                    if(ball.velocityY>= 2.0f){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}
 
+
+
+            }
 
             block.render();
 
@@ -77,9 +86,35 @@ public class Main {
         glfwDestroyWindow(mainWindow);
         glfwTerminate();
     }
+
+    //Collision
+    public boolean checkBallCollision(Ball ball, Racket racket, Block block){
+        float ballLeft = ball.x - ball.radius;
+        float ballRight = ball.x + ball.radius;
+        float ballTop = ball.y - ball.radius;
+        float ballBottom = ball.y + ball.radius;
+
+        float racketLeft = racket.x;
+        float racketRight = racket.x + racket.width;
+        float racketTop = racket.y;
+        float racketBottom = racket.y + racket.height;
+
+        float blockLeft = block.x;
+        float blockRight = block.x + block.width;
+        float blockTop = block.y;
+        float blockBottom= block.y + block.height;
+
+      /*  if(ballRight < racketLeft || ballLeft > racketRight || ballBottom < racketTop || ballTop > racketBottom || ballRight < blockLeft || ballLeft > blockRight || ballBottom < blockTop || ballTop > blockBottom){
+            return false;
+        }*/
+        boolean colissionWithRacket = !(ballRight < racketLeft || ballLeft > racketRight || ballBottom < racketTop || ballTop > racketBottom);
+        boolean collisionWithBlock = !(ballRight < blockLeft || ballLeft > blockRight || ballBottom < blockTop || ballTop > blockBottom);
+        return collisionWithBlock || colissionWithRacket;
+    }
     public static void main(String[] args){
         new Main().run();
     }
 
 }
+
 

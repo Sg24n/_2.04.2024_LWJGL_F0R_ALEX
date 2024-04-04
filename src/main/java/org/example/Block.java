@@ -1,7 +1,7 @@
 package org.example;
 import static org.lwjgl.opengl.GL11.*;
 public class Block {
-    private float x, y, width, height;
+    public float x, y, width, height;
     private float r, g, b;
 
     public Block(float x, float y, float width, float height, float r, float g, float b) {

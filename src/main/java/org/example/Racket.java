@@ -3,10 +3,10 @@ import static org.lwjgl.opengl.GL11.*;
 public class Racket {
     private float r, g, b;
 
-    private float x, y;
-    private final float width, height;
+    public float x, y;
+    public final float width, height;
     private float velocityX = 0.0f;
-    private final float speed = 6.0f;
+    private final float speed = 18.0f;
 
 
     public Racket(float x, float y, float width, float height, float r, float g, float b) {
