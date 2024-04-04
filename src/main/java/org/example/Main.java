@@ -15,14 +15,16 @@ public class Main {
         }
 
         //Окошка  креайтинг
-        long window = glfwCreateWindow(640, 480, "Basic1", NULL, NULL);
-        if (window == NULL) {
+        int width = 640;
+        int height = 480;
+        long mainWindow = glfwCreateWindow(width, height, "Basic1", NULL, NULL);
+        if (mainWindow == NULL) {
             glfwTerminate();
             throw new RuntimeException("Window is broke :(");
         }
 
         //Настройка рендеринга окна
-        glfwMakeContextCurrent(window);
+        glfwMakeContextCurrent(mainWindow);
         //Для использованмя opengl
         GL.createCapabilities();
         //Создание ортограф проекции Чтоб OpenGL поняла где она, и куда рендерить.
@@ -32,23 +34,47 @@ public class Main {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
+
+
     //Добавление блока шарика и missle
         Block block = new Block(100, 100, 50, 20, 1.0f, 1.0f, 1.0f);
-        Racket racket = new Racket(320, 400, 30, 10, 1.0f, 1.0f, 0.0f);
-        Ball ball = new Ball(320, 240, 15.0f, 0.0f, 0.0f, 0.5f, 0.7f,1.0f);
-        while (!glfwWindowShouldClose(window)) {
+        Racket racket = new Racket(320, 400, 30, 10,1.0f, 1.0f, 0.0f);
+        Ball ball = new Ball(width, height, 320, 240, 15.0f, 0.6f, 0.5f, 0.5f, 0.7f,1.0f);
+
+        //Настройка управления ракеткой
+        glfwSetKeyCallback(mainWindow, (window, key, scancode, action, mods)->{
+            if (action == GLFW_PRESS || action == GLFW_REPEAT){
+                switch (key){
+                    case GLFW_KEY_A -> racket.moveLeft();
+                    case GLFW_KEY_D -> racket.moveRight();
+                }
+            } else if (action == GLFW_RELEASE){
+                switch (key){
+                    case GLFW_KEY_A, GLFW_KEY_D -> racket.stop();
+                }
+            }
+        });
+
+        //Main loop
+        while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+
             block.render();
+
+            ball.update();
             ball.render();
+
+            racket.update();
             racket.render();
+
             
-            
-            glfwSwapBuffers(window);
+            glfwSwapBuffers(mainWindow);
             glfwPollEvents();
         }
-        glfwDestroyWindow(window);
+        glfwDestroyWindow(mainWindow);
         glfwTerminate();
     }
     public static void main(String[] args){

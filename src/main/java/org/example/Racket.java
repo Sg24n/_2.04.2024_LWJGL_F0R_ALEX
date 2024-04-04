@@ -5,6 +5,9 @@ public class Racket {
 
     private float x, y;
     private final float width, height;
+    private float velocityX = 0.0f;
+    private final float speed = 6.0f;
+
 
     public Racket(float x, float y, float width, float height, float r, float g, float b) {
         this.x = x;
@@ -15,6 +18,14 @@ public class Racket {
         this.g = g;
         this.b = b;
     }
+
+    public void update(){
+        x += velocityX;
+        //Проверка колизий x
+        if (x<= 0 || x >=width){
+            velocityX = 0.0f;
+        }
+    }
     public void render() {
         glColor3f(r, g, b); // Установка цвета блока
         glBegin(GL_QUADS);
@@ -24,5 +35,16 @@ public class Racket {
         glVertex2f(x, y + height);
         glEnd();
     }
+
+    public void moveLeft(){
+        velocityX = -speed;
+    }
+    public void moveRight(){
+        velocityX = speed;
+    }
+    public void stop(){
+        velocityX = 0.0f;
+    }
+
 
 }
