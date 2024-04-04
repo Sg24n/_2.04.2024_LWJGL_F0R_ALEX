@@ -1,10 +1,10 @@
 package org.example;
 import static org.lwjgl.opengl.GL11.*;
 public class Block {
-    public float x, y, width, height;
+    public float x, y, width, height, health;
     private float r, g, b;
 
-    public Block(float x, float y, float width, float height, float r, float g, float b) {
+    public Block(float x, float y, float width, float height, float r, float g, float b, float health) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -13,6 +13,7 @@ public class Block {
         this.g = g;
         this.b = b;
     }
+
 
     public void render() {
         glColor3f(r, g, b); // Установка цвета блока

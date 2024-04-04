@@ -1,12 +1,16 @@
 package org.example;
 import org.lwjgl.opengl.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
-
+  private List<Block> blockList = new ArrayList<>();
 
 
 
@@ -17,7 +21,7 @@ public class Main {
         }
 
         //Окошка  креайтинг
-        int width = 640;
+        int width = 480;
         int height = 480;
         long mainWindow = glfwCreateWindow(width, height, "Basic1", NULL, NULL);
         if (mainWindow == NULL) {
@@ -25,23 +29,26 @@ public class Main {
             throw new RuntimeException("Window is broke :(");
         }
 
-        //Настройка рендеринга окна
-        glfwMakeContextCurrent(mainWindow);
-        //Для использованмя opengl
-        GL.createCapabilities();
+        glfwMakeContextCurrent(mainWindow);//Настройка рендеринга окна
+        GL.createCapabilities();        //Для использованмя opengl
         //Создание ортограф проекции Чтоб OpenGL поняла где она, и куда рендерить.
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, 640, 480, 0,-1, 1);
+        glOrtho(0, width, height, 0,-1, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
 
 
-    //Добавление блока шарика и missle
-        Block block = new Block(100, 100, 50, 20, 1.0f, 1.0f, 1.0f);
-        Racket racket = new Racket(320, 400, 30, 10,1.0f, 1.0f, 0.0f);
-        Ball ball = new Ball(width, height, 320, 240, 15.0f, 0.6f, 0.5f, 0.5f, 0.7f,1.0f);
+    //Добавление блока шарика и missile
+        Racket racket = new Racket(width/2.14f, height/1.2f, 30, 10,1.0f, 1.0f, 0.0f);
+        Ball ball = new Ball(width, height, width/2, height/2, 15.0f, 2.0f, 2.0f, 0.5f, 0.7f,1.0f);
+
+
+        //Ряд блоков
+        for (int i= 0 ;i<7; i++){
+            blockList.add(new Block((width/9f) * i +(width/9f), height/4,40, 10, 1.0f, 1.0f, 1.0f, 0.1f ));
+        }
 
         //Настройка управления ракеткой
         glfwSetKeyCallback(mainWindow, (window, key, scancode, action, mods)->{
@@ -64,14 +71,30 @@ public class Main {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            if(checkBallCollision(ball, racket, block)) {
-                    if(ball.velocityY>= 2.0f){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}
-
-
-
+            for(Block block:blockList){
+                block.render();
             }
 
-            block.render();
+            //Blocks Iterator for safety deleting
+            Iterator<Block> blockIterator = blockList.iterator();
+            while (blockIterator.hasNext())
+            {
+                Block block = blockIterator.next();
+                if(checkBlockCollision(ball,block)){
+                    if (ball.velocityY<3f){ball.velocityY = -(ball.velocityY*1.5f);
+                    } else {ball.velocityY = -ball.velocityY;}
+                    blockIterator.remove();
+                    break;
+                }
+            }
+
+            if(checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
+            for(Block block:blockList){
+                if (checkBlockCollision(ball, block)) {
+                    ball.velocityY = -ball.velocityY;
+
+                }
+            }
 
             ball.update();
             ball.render();
@@ -87,8 +110,8 @@ public class Main {
         glfwTerminate();
     }
 
-    //Collision
-    public boolean checkBallCollision(Ball ball, Racket racket, Block block){
+    //Collision Racket
+    public boolean checkRacketCollision(Ball ball, Racket racket){
         float ballLeft = ball.x - ball.radius;
         float ballRight = ball.x + ball.radius;
         float ballTop = ball.y - ball.radius;
@@ -99,19 +122,30 @@ public class Main {
         float racketTop = racket.y;
         float racketBottom = racket.y + racket.height;
 
+
+        boolean colissionWithRacket = !(ballRight < racketLeft || ballLeft > racketRight || ballBottom < racketTop || ballTop > racketBottom);
+
+        return colissionWithRacket;
+    }
+
+    //Collision Block
+    public boolean checkBlockCollision(Ball ball, Block block){
+        float ballLeft = ball.x - ball.radius;
+        float ballRight = ball.x + ball.radius;
+        float ballTop = ball.y - ball.radius;
+        float ballBottom = ball.y + ball.radius;
+
         float blockLeft = block.x;
         float blockRight = block.x + block.width;
         float blockTop = block.y;
         float blockBottom= block.y + block.height;
 
-      /*  if(ballRight < racketLeft || ballLeft > racketRight || ballBottom < racketTop || ballTop > racketBottom || ballRight < blockLeft || ballLeft > blockRight || ballBottom < blockTop || ballTop > blockBottom){
-            return false;
-        }*/
-        boolean colissionWithRacket = !(ballRight < racketLeft || ballLeft > racketRight || ballBottom < racketTop || ballTop > racketBottom);
         boolean collisionWithBlock = !(ballRight < blockLeft || ballLeft > blockRight || ballBottom < blockTop || ballTop > blockBottom);
-        return collisionWithBlock || colissionWithRacket;
+
+        return collisionWithBlock;
     }
     public static void main(String[] args){
+
         new Main().run();
     }
 

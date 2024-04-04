@@ -26,14 +26,9 @@ public class Ball {
         y += velocityY;
         x += velocityX;
         //Проверка колизий x and y
-        if (x<= 0 || x + radius * 2 >=width){
-            if((velocityX/2)<= 0.5f){velocityX = -velocityX;} else {velocityX = -(velocityX/1.5f);}
+        if (x<= 0 || x + radius * 2 >=width) {velocityX = -velocityX;}
+        if (y <= 0 || y + radius * 2 >= height) {velocityY = -velocityY;}
         }
-        if (y<=0 || y + radius*2 >= height){
-            if((velocityY/2)<= 0.5f){velocityY = -velocityY;} else {velocityY = -(velocityY/1.5f);}
-        }
-
-    }
     public void render(){
         glColor3f(r,g,b);
         int segments = 40;
