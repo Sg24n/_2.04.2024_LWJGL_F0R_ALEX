@@ -1,6 +1,6 @@
 package org.example;
 import static org.lwjgl.opengl.GL11.*;
-public class Ball {
+public class Ball implements ObjInterface {
     private int width, height;
     private float r, g, b;
 
@@ -21,14 +21,18 @@ public class Ball {
         this.height = height;
     }
 
-
+    @Override
     public void update(){
         y += velocityY;
         x += velocityX;
         //Проверка колизий x and y
         if (x<= 0 || x + radius * 2 >=width) {velocityX = -velocityX;}
         if (y <= 0 || y + radius * 2 >= height) {velocityY = -velocityY;}
+
+        //Physics.reactBallcollision
+
         }
+        @Override
     public void render(){
         glColor3f(r,g,b);
         int segments = 40;

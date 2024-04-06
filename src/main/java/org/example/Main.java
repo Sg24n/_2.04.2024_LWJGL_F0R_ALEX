@@ -10,7 +10,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
-  private List<Block> blockList = new ArrayList<>();
+    //Добавление списка блоков для уровня
+    List<Block> blockList = Factorys.BlockFactory.createBlocksByLVL(1,7);
+
 
 
 
@@ -45,10 +47,6 @@ public class Main {
         Ball ball = new Ball(width, height, width/2, height/2, 15.0f, 2.0f, 2.0f, 0.5f, 0.7f,1.0f);
 
 
-        //Ряд блоков
-        for (int i= 0 ;i<7; i++){
-            blockList.add(new Block((width/9f) * i +(width/9f), height/4,40, 10, 1.0f, 1.0f, 1.0f, 0.1f ));
-        }
 
         //Настройка управления ракеткой
         glfwSetKeyCallback(mainWindow, (window, key, scancode, action, mods)->{
@@ -72,11 +70,14 @@ public class Main {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             for(Block block:blockList){
+             //   block.update();
                 block.render();
             }
 
+
+
             //Blocks Iterator for safety deleting
-            Iterator<Block> blockIterator = blockList.iterator();
+           /* Iterator<Block> blockIterator = blockList.iterator();
             while (blockIterator.hasNext())
             {
                 Block block = blockIterator.next();
@@ -86,9 +87,10 @@ public class Main {
                     blockIterator.remove();
                     break;
                 }
-            }
+            }*/
 
             if(checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
+            // Добавление блоков в уровень
             for(Block block:blockList){
                 if (checkBlockCollision(ball, block)) {
                     ball.velocityY = -ball.velocityY;
@@ -145,7 +147,6 @@ public class Main {
         return collisionWithBlock;
     }
     public static void main(String[] args){
-
         new Main().run();
     }
 
