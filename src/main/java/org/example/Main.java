@@ -45,8 +45,11 @@ public class Main {
 
     //Добавление блока шарика и missile
         Racket racket = new Racket(width/2.14f, height/1.2f, 30, 10,1.0f, 1.0f, 0.0f);
-        Ball ball = new Ball(width, height, width/2, height/2, 8.0f, 2.0f, 2.0f, 0.5f, 0.7f,1.0f);
-
+        Ball ball = Factorys.BallFactory.createBall(width, height,
+                width/2, height/2,
+                8.0f,
+                2.0f, 2.0f,
+                0.5f, 0.7f,1.0f);
 
 
         //Настройка управления ракеткой
@@ -63,8 +66,7 @@ public class Main {
             }
         });
 
-
-        blockManager.addBlockForLevel(1,7);
+    blockManager.addBlockForLevel(1,7);
 
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
@@ -75,22 +77,7 @@ public class Main {
             blockManager.update(ball);
 
 
-
-
-            //Blocks Iterator for safety deleting
-           /* Iterator<Block> blockIterator = blockList.iterator();
-            while (blockIterator.hasNext())
-            {
-                Block block = blockIterator.next();
-                if(checkBlockCollision(ball,block)){
-                    if (ball.velocityY<3f){ball.velocityY = -(ball.velocityY*1.5f);
-                    } else {ball.velocityY = -ball.velocityY;}
-                    blockIterator.remove();
-                    break;
-                }
-            }*/
-
-            if(checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
+            if(Physics.checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
 
             ball.update();
             ball.render();
@@ -106,41 +93,10 @@ public class Main {
         glfwTerminate();
     }
 
-    //Collision Racket
-    public boolean checkRacketCollision(Ball ball, Racket racket){
-        float ballLeft = ball.x - ball.radius;
-        float ballRight = ball.x + ball.radius;
-        float ballTop = ball.y - ball.radius;
-        float ballBottom = ball.y + ball.radius;
 
-        float racketLeft = racket.x;
-        float racketRight = racket.x + racket.width;
-        float racketTop = racket.y;
-        float racketBottom = racket.y + racket.height;
-
-
-        boolean colissionWithRacket = !(ballRight < racketLeft || ballLeft > racketRight || ballBottom < racketTop || ballTop > racketBottom);
-
-        return colissionWithRacket;
-    }
-
-    //Collision Block
-   /* public boolean checkBlockCollision(Ball ball, Block block){
-        float ballLeft = ball.x - ball.radius;
-        float ballRight = ball.x + ball.radius;
-        float ballTop = ball.y - ball.radius;
-        float ballBottom = ball.y + ball.radius;
-
-        float blockLeft = block.x;
-        float blockRight = block.x + block.width;
-        float blockTop = block.y;
-        float blockBottom= block.y + block.height;
-
-        boolean collisionWithBlock = !(ballRight < blockLeft || ballLeft > blockRight || ballBottom < blockTop || ballTop > blockBottom);
-
-        return collisionWithBlock;
-    }*/
     public static void main(String[] args){
+
+
         new Main().run();
     }
 
