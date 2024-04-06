@@ -2,7 +2,8 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// ЭТОТ  ГЛУБОКО УВАЖАЕМЫЙ КЛАСС ТОЛЬКО ДЛЯ СОЗДАНИЯ!! ОБЪЕКТОВ, НО НЕ И ИЗМЕНЕНИЯ.
+// НЕ ТРОЖ ЕГО СВОИМИ ГРЯЗНЫМИ РУЧОНКАМИ ДАЖЕ ЕСЛИ ОЧЕНЬ ХОЧЕТСЯ, ДМИТРИЙ
 public class Factorys {
 
 public class BlockFactory{

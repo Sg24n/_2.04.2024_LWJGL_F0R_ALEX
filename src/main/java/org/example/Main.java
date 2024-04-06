@@ -11,7 +11,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
     //Добавление списка блоков для уровня
-    List<Block> blockList = Factorys.BlockFactory.createBlocksByLVL(1,7);
+    BlockManager blockManager = new BlockManager();
 
 
 
@@ -69,10 +69,10 @@ public class Main {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            for(Block block:blockList){
-             //   block.update();
-                block.render();
-            }
+            blockManager.addBlockForLevel(1,7);
+            blockManager.render();
+            blockManager.update(ball);
+
 
 
 
@@ -90,13 +90,6 @@ public class Main {
             }*/
 
             if(checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
-            // Добавление блоков в уровень
-            for(Block block:blockList){
-                if (checkBlockCollision(ball, block)) {
-                    ball.velocityY = -ball.velocityY;
-
-                }
-            }
 
             ball.update();
             ball.render();
@@ -131,7 +124,7 @@ public class Main {
     }
 
     //Collision Block
-    public boolean checkBlockCollision(Ball ball, Block block){
+   /* public boolean checkBlockCollision(Ball ball, Block block){
         float ballLeft = ball.x - ball.radius;
         float ballRight = ball.x + ball.radius;
         float ballTop = ball.y - ball.radius;
@@ -145,7 +138,7 @@ public class Main {
         boolean collisionWithBlock = !(ballRight < blockLeft || ballLeft > blockRight || ballBottom < blockTop || ballTop > blockBottom);
 
         return collisionWithBlock;
-    }
+    }*/
     public static void main(String[] args){
         new Main().run();
     }
