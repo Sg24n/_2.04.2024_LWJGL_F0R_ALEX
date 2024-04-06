@@ -16,6 +16,7 @@ public class Main {
 
 
 
+
     public void run() {
         //INIT  glfw
         if (!glfwInit()) {
@@ -44,7 +45,7 @@ public class Main {
 
     //Добавление блока шарика и missile
         Racket racket = new Racket(width/2.14f, height/1.2f, 30, 10,1.0f, 1.0f, 0.0f);
-        Ball ball = new Ball(width, height, width/2, height/2, 15.0f, 2.0f, 2.0f, 0.5f, 0.7f,1.0f);
+        Ball ball = new Ball(width, height, width/2, height/2, 8.0f, 2.0f, 2.0f, 0.5f, 0.7f,1.0f);
 
 
 
@@ -63,13 +64,13 @@ public class Main {
         });
 
 
+        blockManager.addBlockForLevel(1,7);
 
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            blockManager.addBlockForLevel(1,7);
             blockManager.render();
             blockManager.update(ball);
 

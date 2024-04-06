@@ -27,9 +27,10 @@ public class BlockManager {
 
                 physics.ReactOnCollision(ball);
                 blockIterator.remove();
+                break;
+
             }
 
-            break;
         }
 
     }

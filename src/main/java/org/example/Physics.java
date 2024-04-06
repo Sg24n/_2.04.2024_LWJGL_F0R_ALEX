@@ -21,7 +21,7 @@ public class Physics {
 
     public void ReactOnCollision(Ball ball){
             System.out.println("React on collision");
-                if (ball.velocityY<3f){ball.velocityY = -(ball.velocityY*1.5f);
+                if (Math.abs(ball.velocityY)<3f){ball.velocityY = -(ball.velocityY*1.5f);
                 } else {ball.velocityY = -ball.velocityY;}
 
         return;
