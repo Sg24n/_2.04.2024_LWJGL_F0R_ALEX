@@ -1,14 +1,23 @@
 package org.example;
+import org.lwjgl.assimp.AIVector2D;
+
 import static org.lwjgl.opengl.GL11.*;
 public class Ball implements ObjInterface {
     private int width, height;
     private float r, g, b;
+    public Vector2D position, vVelocity;
+
 
     public float x, y;
     public final float radius;
     public float velocityX, velocityY;
 
     public Ball(int width, int height, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b){
+
+        this.position = new Vector2D(x, y);
+        this.vVelocity = new Vector2D(velocityX, velocityY);
+
+
         this.x = x;
         this.y = y;
         this.radius = radius;

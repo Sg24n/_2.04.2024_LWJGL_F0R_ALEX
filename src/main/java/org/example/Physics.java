@@ -1,8 +1,16 @@
 package org.example;
 
 public class Physics {
+    long lastFrameTime = System.nanoTime(); // Инициализация ЛФТ
 
-    public static boolean checkRacketCollision(Ball ball, Racket racket){
+    public float deltaTime(){
+        long currentFrameTime = System.nanoTime();
+        float deltaTime = (currentFrameTime - lastFrameTime) / 1_000_000_000.0f; // Расчет deltaTime в секундах
+        lastFrameTime = currentFrameTime;
+        return deltaTime;
+    }
+
+    public static Object checkRacketCollision(Ball ball, Racket racket){
         float ballLeft = ball.x - ball.radius;
         float ballRight = ball.x + ball.radius;
         float ballTop = ball.y - ball.radius;
@@ -36,11 +44,24 @@ public class Physics {
         return collisionWithBlock;
     }
 
-    public void ReactOnCollision(Ball ball){
-            System.out.println("React on collision");
+    // Обработка столкновения в зависимости от типа объекта
+    public void ReactOnCollision(Ball ball, Object collObject){
+            /*System.out.println("React on collision");
                 if (Math.abs(ball.velocityY)<3f){ball.velocityY = -(ball.velocityY*1.5f);
-                } else {ball.velocityY = -ball.velocityY;}
+                } else {ball.velocityY = -ball.velocityY;}*/
 
+        if (collObject instanceof Racket) {
+            Racket racket = (Racket) collObject;
+            // Реакция на столкновение с ракеткой
+
+        } else if (collObject instanceof Block) {
+            // Реакция на столкновение с блоком
+            if (Math.abs(ball.velocityY) < 3f) {
+                ball.velocityY = -(ball.velocityY * 1.5f);
+            } else {
+                ball.velocityY = -ball.velocityY;
+            }
+        }
         return;
     }
 

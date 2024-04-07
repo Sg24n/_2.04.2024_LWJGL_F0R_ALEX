@@ -12,6 +12,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class Main {
     //Добавление списка блоков для уровня
     BlockManager blockManager = new BlockManager();
+    Physics physics = new Physics();
 
 
 
@@ -67,17 +68,18 @@ public class Main {
         });
 
     blockManager.addBlockForLevel(1,7);
-
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            float delta = physics.deltaTime();
+
             blockManager.render();
             blockManager.update(ball);
 
 
-            if(Physics.checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
+           // if(Physics.checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
 
             ball.update();
             ball.render();
