@@ -3,13 +3,18 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
-public class Block implements ObjInterface {
+
+
+public class Block implements BoundedObject {
+    public Vector2D position;
+
     public float x, y, width, height, health;
     private float r, g, b;
 
     public Block(float x, float y, float width, float height, float r, float g, float b, float health) {
-        this.x = x;
-        this.y = y;
+
+        this.position = new Vector2D(x, y);
+
         this.width = width;
         this.height = height;
         this.r = r;
@@ -17,20 +22,32 @@ public class Block implements ObjInterface {
         this.b = b;
     }
 
-    @Override
+
     public void render() {
         glColor3f(r, g, b); // Установка цвета блока
         glBegin(GL_QUADS);
-        glVertex2f(x, y);
-        glVertex2f(x + width, y);
-        glVertex2f(x + width, y + height);
-        glVertex2f(x, y + height);
+        glVertex2f(position.x, position.y);
+        glVertex2f(position.x + width, position.y);
+        glVertex2f(position.x + width, position.y + height);
+        glVertex2f(position.x, position.y + height);
         glEnd();
     }
 
     @Override
-    public void update() {
-
-
+    public float getLeft(){
+        return position.x;
     }
+    @Override
+    public float getRight(){
+        return position.x + width;
+    }
+    @Override
+    public float getTop(){
+        return position.y;
+    }
+    @Override
+    public float getBottom(){
+        return position.y + height;
+    }
+
 }

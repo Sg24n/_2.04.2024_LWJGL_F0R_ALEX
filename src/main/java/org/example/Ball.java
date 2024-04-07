@@ -2,7 +2,7 @@ package org.example;
 import org.lwjgl.assimp.AIVector2D;
 
 import static org.lwjgl.opengl.GL11.*;
-public class Ball implements ObjInterface {
+public class Ball {
     private int width, height;
     private float r, g, b;
     public Vector2D position, vVelocity;
@@ -17,9 +17,6 @@ public class Ball implements ObjInterface {
         this.position = new Vector2D(x, y);
         this.vVelocity = new Vector2D(velocityX, velocityY);
 
-
-        this.x = x;
-        this.y = y;
         this.radius = radius;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
@@ -30,18 +27,17 @@ public class Ball implements ObjInterface {
         this.height = height;
     }
 
-    @Override
-    public void update(){
-        y += velocityY;
-        x += velocityX;
+    public void update(float deltaTime){
+
+        this.position = this.position.add(this.vVelocity.multiply(deltaTime));
+
         //Проверка колизий x and y
-        if (x<= 0 || x + radius * 2 >=width) {velocityX = -velocityX;}
-        if (y <= 0 || y + radius * 2 >= height) {velocityY = -velocityY;}
+        if (position.x<= 0)  {vVelocity.x = Math.abs(vVelocity.x); position.x = 1;
+        } else if(position.x + radius * 2 >=width){vVelocity.x = -Math.abs(velocityX); position.x = width - radius * 2 - 1;}
 
-        //Physics.reactBallcollision
-
+        if (position.y <= 0) {vVelocity.y = Math.abs(vVelocity.y);position.y = 1;
+        } else if (position.y + radius * 2 >= height) {vVelocity.y = -Math.abs(vVelocity.y);position.y = height - radius * 2 - 1;}
         }
-        @Override
     public void render(){
         glColor3f(r,g,b);
         int segments = 40;
@@ -49,9 +45,9 @@ public class Ball implements ObjInterface {
         for (int i = 0; i<segments; i++){
             //Тут математика какаято я не шарю просто переписал
             double theta = 2.0 * Math.PI * i / segments;
-            double x = this.radius * Math.cos(theta);
-            double y = this.radius * Math.sin(theta);
-            glVertex2d(x + this.x, y + this.y);
+            double x = this.radius * Math.cos(theta) + this.position.x;
+            double y = this.radius * Math.sin(theta) + this.position.y;
+            glVertex2d(x, y);
         }
         glEnd();
     }

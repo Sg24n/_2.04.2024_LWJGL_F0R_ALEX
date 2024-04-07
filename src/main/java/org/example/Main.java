@@ -38,7 +38,7 @@ public class Main {
         //Создание ортограф проекции Чтоб OpenGL поняла где она, и куда рендерить.
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, width, height, 0,-1, 1);
+        glOrtho(0, height, width, 0,-1, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
@@ -49,7 +49,7 @@ public class Main {
         Ball ball = Factorys.BallFactory.createBall(width, height,
                 width/2, height/2,
                 8.0f,
-                2.0f, 2.0f,
+                120.0f, 160.0f,
                 0.5f, 0.7f,1.0f);
 
 
@@ -79,9 +79,9 @@ public class Main {
             blockManager.update(ball);
 
 
-           // if(Physics.checkRacketCollision(ball, racket)) {if(ball.velocityY>= 2.0f || ball.velocityY<= 2.0f ){ball.velocityY = -ball.velocityY;} else {ball.velocityY = -(ball.velocityY*1.5f);}}
+            if(physics.checkCollision(ball, racket)) {physics.ReactOnCollision(ball,racket);}
 
-            ball.update();
+            ball.update(delta);
             ball.render();
 
             racket.update();

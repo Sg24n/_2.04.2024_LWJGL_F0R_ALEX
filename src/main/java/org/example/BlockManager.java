@@ -23,7 +23,7 @@ public class BlockManager {
         while (blockIterator.hasNext()) {
             Block block = blockIterator.next();
             //Check collision Physics
-            if (physics.checkBlockCollision(ball, block)){
+            if (physics.checkCollision(ball, block)){
                 System.out.println("UPDATE Collision is true");
 
                 physics.ReactOnCollision(ball, block);

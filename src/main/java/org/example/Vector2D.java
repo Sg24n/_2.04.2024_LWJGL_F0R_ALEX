@@ -20,4 +20,8 @@ public class Vector2D {
         return this.x * other.x + this.y * other.y;
     }
 
+    public Vector2D multiply(float scalar) {
+        return new Vector2D(this.x * scalar, this.y * scalar);
+    }
+
 }
