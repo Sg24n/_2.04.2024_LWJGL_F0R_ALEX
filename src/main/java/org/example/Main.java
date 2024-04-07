@@ -45,7 +45,7 @@ public class Main {
 
 
     //Добавление блока шарика и missile
-        Racket racket = new Racket(width/2.14f, height/1.2f, 30, 10,1.0f, 1.0f, 0.0f);
+        Racket racket = new Racket(width/2.14f, height/1.2f, 50, 10,1.0f, 1.0f, 0.0f);
         Ball ball = Factorys.BallFactory.createBall(width, height,
                 width/2, height/2,
                 8.0f,
@@ -68,26 +68,32 @@ public class Main {
         });
 
     blockManager.addBlockForLevel(1,7);
+
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
             float delta = physics.deltaTime();
 
-            blockManager.render();
-            blockManager.update(ball);
 
+            racket.update(delta);
+            racket.render();
 
             if(physics.checkCollision(ball, racket)) {physics.ReactOnCollision(ball,racket);}
+
+
+            blockManager.update(ball);
+            blockManager.render();
+
+
+
+
 
             ball.update(delta);
             ball.render();
 
-            racket.update();
-            racket.render();
 
-            
+
             glfwSwapBuffers(mainWindow);
             glfwPollEvents();
         }

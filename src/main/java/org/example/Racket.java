@@ -6,7 +6,9 @@ public class Racket implements BoundedObject{
     public float x, y;
     public final float width, height;
     private float velocityX = 0.0f;
-    private final float speed = 18.0f;
+    private float targetVelocityX = 0.0f; // Целевая скорость
+
+    private final float speed = 400.0f;
     public Vector2D position;
 
 
@@ -24,8 +26,17 @@ public class Racket implements BoundedObject{
         this.b = b;
     }
 
-    public void update(){
-        position.x += velocityX;;
+    public void update(float deltaTime){
+
+        // Плавное перемещение
+        float acceleration = 100000f;
+        if (velocityX < targetVelocityX) {
+            velocityX = Math.min(velocityX + acceleration * deltaTime, targetVelocityX);
+        } else if (velocityX > targetVelocityX) {
+            velocityX = Math.max(velocityX - acceleration * deltaTime, targetVelocityX);
+        }
+        position.x += velocityX * deltaTime;
+
         //Проверка колизий x
         if (position.x<= 0 || position.x >=width){
             velocityX = 0.0f;
@@ -42,13 +53,17 @@ public class Racket implements BoundedObject{
     }
 
     public void moveLeft(){
-        velocityX = -speed;
+        //velocityX = -speed;
+        targetVelocityX = -speed;
+
     }
     public void moveRight(){
-        velocityX = speed;
+        //velocityX = speed;
+        targetVelocityX = speed;
     }
     public void stop(){
-        velocityX= 0.0f;
+        //velocityX= 0.0f;
+        targetVelocityX = 0.0f;
     }
 
 
