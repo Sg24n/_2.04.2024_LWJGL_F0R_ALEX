@@ -24,7 +24,7 @@ public class BlockFactory{
     }
 }
 
-public class BallFactory{
+public static class BallFactory{
     public static Ball createBall(int width, int height, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b){
         return new Ball(width,height,x,y,radius,velocityX,velocityY,r,g,b);
     }
