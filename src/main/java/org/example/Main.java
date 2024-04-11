@@ -13,7 +13,7 @@ public class Main {
     //Добавление списка блоков для уровня
     BlockManager blockManager = new BlockManager();
     Physics physics = new Physics();
-
+    LevelManager levelManager = new LevelManager(blockManager);
 
 
 
@@ -67,7 +67,7 @@ public class Main {
             }
         });
 
-    blockManager.addBlockForLevel(1,7);
+        levelManager.addBlockForLevel(1);
 
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
@@ -79,6 +79,10 @@ public class Main {
             racket.update(delta);
             racket.render();
 
+
+            ball.update(delta);
+            ball.render();
+
             if(physics.checkCollision(ball, racket)) {physics.ReactOnCollision(ball,racket);}
 
 
@@ -89,8 +93,6 @@ public class Main {
 
 
 
-            ball.update(delta);
-            ball.render();
 
 
 

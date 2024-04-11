@@ -8,12 +8,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Читает файл с параметрами и создаёт уровень.
+//Принимает имя файла
+
 public class LevelManager {
 
-    private BlockManager blockManager;
+    private static BlockManager blockManager;
     public LevelManager(BlockManager blockManager){
         this.blockManager = blockManager;
     }
+    //Инфа о уровне из файла
+    static int[][] levelData = {
+            {1, 0, 1, 1, 0, 1, 0},
+            {0, 1, 0, 0, 1, 0, 0},
+            {1, 0, 1, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0}
+    };
+
 
     //Границы окна
     public static int width;
@@ -24,7 +40,10 @@ public class LevelManager {
     //Load level
     public void loadLevelFromFile(String filepath){
         List<String> lines = readLinesFromFile(filepath);
-
+        for (String line: lines){
+            for (int x = 0; x<line.length(); x++){
+            }
+        }
     }
 
 
@@ -36,9 +55,8 @@ public class LevelManager {
 
 
     //Create Block
-    public void addBlockForLevel(int LVL, int quantity){
-        List<Block> newBlocks = Factorys.BlockFactory.createBlocksByLVL(LVL, quantity);
-        this.blockList.addAll(newBlocks); // Добавление новых блоков в список
+    public void addBlockForLevel(int LVL){
+       blockManager.addBlockForLevel(LVL, levelData);
     }
 
     //Create ball

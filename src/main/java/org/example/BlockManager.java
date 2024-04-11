@@ -13,8 +13,8 @@ public class BlockManager {
         this.blockList = new ArrayList<>(); // Инициализация пустого списка блоков
 
     }
-    public void addBlockForLevel(int LVL, int quantity){
-        List<Block> newBlocks = Factorys.BlockFactory.createBlocksByLVL(LVL, quantity);
+    public void addBlockForLevel(int LVL, int[][] levelData){
+        List<Block> newBlocks = Factorys.BlockFactory.createBlocksByLVL(LVL,levelData);
         this.blockList.addAll(newBlocks); // Добавление новых блоков в список
     }
     public void update(Ball ball) {
