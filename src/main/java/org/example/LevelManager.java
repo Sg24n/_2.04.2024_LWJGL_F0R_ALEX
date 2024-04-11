@@ -38,13 +38,32 @@ public class LevelManager {
     //Read file
 
     //Load level
-    public void loadLevelFromFile(String filepath){
+    private int[][] loadLevelData(String filepath){
         List<String> lines = readLinesFromFile(filepath);
-        for (String line: lines){
-            for (int x = 0; x<line.length(); x++){
+
+        if(lines.isEmpty()){
+            System.out.println("Level data is missing");
+            return new int [0][0];
+        }
+
+        int rows = lines.size();
+        int cols = lines.get(0).length();
+        int[][] levelData = new int[rows][cols];
+
+
+        // Заполнение массива данными
+        for (int y = 0; y < rows; y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < cols; x++) {
+                char character = line.charAt(x);
+                // Преобразование символа в число
+                levelData[y][x] = Character.getNumericValue(character);
             }
         }
+
+        return levelData;
     }
+
 
 
 
@@ -55,8 +74,8 @@ public class LevelManager {
 
 
     //Create Block
-    public void addBlockForLevel(int LVL){
-       blockManager.addBlockForLevel(LVL, levelData);
+    public void addBlockForLevel(int LVL, String filepath){
+       blockManager.addBlockForLevel(LVL, loadLevelData(filepath));
     }
 
     //Create ball

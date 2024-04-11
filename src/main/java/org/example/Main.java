@@ -67,7 +67,7 @@ public class Main {
             }
         });
 
-        levelManager.addBlockForLevel(1);
+        levelManager.addBlockForLevel(1, "levels/level1.txt");
 
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
