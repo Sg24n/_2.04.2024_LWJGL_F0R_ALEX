@@ -36,8 +36,20 @@ public class LevelManager {
     public static int height;
 
     //Read file
+    private List<String> readLinesFromFile(String filePath) {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
 
-    //Load level
+    //Load levelData
     private int[][] loadLevelData(String filepath){
         List<String> lines = readLinesFromFile(filepath);
 
@@ -64,37 +76,28 @@ public class LevelManager {
         return levelData;
     }
 
+    public void loadLevel(String levelName){
+        String filePath = "Levels/" + levelName + ".txt";
+        Racket racket = Factorys.RacketFactory.createRacket(width,height);
+        Ball ball = Factorys.BallFactory.createBall(width,height);
+        addBlockForLevel(1,filePath);
+    }
 
-
-
-
-
+    
 
     //Create racket
 
 
     //Create Block
     public void addBlockForLevel(int LVL, String filepath){
-       blockManager.addBlockForLevel(LVL, loadLevelData(filepath));
+       blockManager.addBlockForLevel(width, LVL, loadLevelData(filepath));
     }
 
     //Create ball
+    Ball ball = Factorys.BallFactory.createBall(width, height);
 
 
 
 
 
-    //Чтение срок из файла в лист
-    private List<String> readLinesFromFile(String filePath) {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lines;
-    }
 }

@@ -11,12 +11,12 @@ public class Block implements BoundedObject {
     public float x, y, width, height, health;
     private float r, g, b;
 
-    public Block(float x, float y, float width, float height, float r, float g, float b, float health) {
+    public Block(float width, float height, float blockWidth, float blockHeight, float r, float g, float b, float health) {
 
-        this.position = new Vector2D(x, y);
+        this.position = new Vector2D(width, height);
 
-        this.width = width;
-        this.height = height;
+        this.width = blockWidth;
+        this.height = blockHeight;
         this.r = r;
         this.g = g;
         this.b = b;

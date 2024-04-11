@@ -1,10 +1,6 @@
 package org.example;
 import org.lwjgl.opengl.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -45,12 +41,8 @@ public class Main {
 
 
     //Добавление блока шарика и missile
-        Racket racket = new Racket(width/2.14f, height/1.2f, 50, 10,1.0f, 1.0f, 0.0f);
-        Ball ball = Factorys.BallFactory.createBall(width, height,
-                width/2, height/2,
-                8.0f,
-                120.0f, 160.0f,
-                0.5f, 0.7f,1.0f);
+        Racket racket = Factorys.RacketFactory.createRacket(width,height);
+         Ball ball = Factorys.BallFactory.createBall(width, height);
 
 
         //Настройка управления ракеткой
@@ -67,8 +59,7 @@ public class Main {
             }
         });
 
-        levelManager.addBlockForLevel(1, "levels/level1.txt");
-
+        levelManager.loadLevel("level1");
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
@@ -88,13 +79,6 @@ public class Main {
 
             blockManager.update(ball);
             blockManager.render();
-
-
-
-
-
-
-
 
             glfwSwapBuffers(mainWindow);
             glfwPollEvents();
