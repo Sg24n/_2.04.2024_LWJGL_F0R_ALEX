@@ -1,4 +1,5 @@
 package org.example;
+
 import org.lwjgl.opengl.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -10,8 +11,6 @@ public class Main {
     BlockManager blockManager = new BlockManager();
     Physics physics = new Physics();
     LevelManager levelManager = new LevelManager(blockManager);
-
-
 
 
     public void run() {
@@ -34,26 +33,25 @@ public class Main {
         //Создание ортограф проекции Чтоб OpenGL поняла где она, и куда рендерить.
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, height, width, 0,-1, 1);
+        glOrtho(0, height, width, 0, -1, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
 
-
-    //Добавление блока шарика и missile
-        Racket racket = Factorys.RacketFactory.createRacket(width,height);
-         Ball ball = Factorys.BallFactory.createBall(width, height);
+        //Добавление блока шарика и missile
+        Racket racket = Factorys.RacketFactory.createRacket(width, height);
+        Ball ball = Factorys.BallFactory.createBall(width, height);
 
 
         //Настройка управления ракеткой
-        glfwSetKeyCallback(mainWindow, (window, key, scancode, action, mods)->{
-            if (action == GLFW_PRESS || action == GLFW_REPEAT){
-                switch (key){
+        glfwSetKeyCallback(mainWindow, (window, key, scancode, action, mods) -> {
+            if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+                switch (key) {
                     case GLFW_KEY_A -> racket.moveLeft();
                     case GLFW_KEY_D -> racket.moveRight();
                 }
-            } else if (action == GLFW_RELEASE){
-                switch (key){
+            } else if (action == GLFW_RELEASE) {
+                switch (key) {
                     case GLFW_KEY_A, GLFW_KEY_D -> racket.stop();
                 }
             }
@@ -66,16 +64,15 @@ public class Main {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             float delta = physics.deltaTime();
 
-
             racket.update(delta);
             racket.render();
-
 
             ball.update(delta);
             ball.render();
 
-            if(physics.checkCollision(ball, racket)) {physics.ReactOnCollision(ball,racket);}
-
+            if (physics.checkCollision(ball, racket)) {
+                physics.ReactOnCollision(ball, racket);
+            }
 
             blockManager.update(ball);
             blockManager.render();
@@ -88,7 +85,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
 
         new Main().run();

@@ -1,4 +1,5 @@
 package org.example;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,19 +35,22 @@ public class Block implements BoundedObject {
     }
 
     @Override
-    public float getLeft(){
+    public float getLeft() {
         return position.x;
     }
+
     @Override
-    public float getRight(){
+    public float getRight() {
         return position.x + width;
     }
+
     @Override
-    public float getTop(){
+    public float getTop() {
         return position.y;
     }
+
     @Override
-    public float getBottom(){
+    public float getBottom() {
         return position.y + height;
     }
 
