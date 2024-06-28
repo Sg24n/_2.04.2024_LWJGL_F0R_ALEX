@@ -3,7 +3,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Racket implements BoundedObject{
     private float r, g, b;
 
-    public float x, y;
+   // public float x, y;
     public final float width, height;
     private float velocityX = 0.0f;
     private float targetVelocityX = 0.0f; // Целевая скорость
@@ -17,8 +17,8 @@ public class Racket implements BoundedObject{
         this.position = new Vector2D(x, y);
 
 
-        this.x = x;
-        this.y = y;
+        //  this.x = x;
+        //this.y = y;
         this.width = width;
         this.height = height;
         this.r = r;
@@ -38,8 +38,9 @@ public class Racket implements BoundedObject{
         position.x += velocityX * deltaTime;
 
         //Проверка колизий x
-        if (position.x<= 0 || position.x >=width){
+        if (position.x<= 0.0f || position.x >=480){
             velocityX = 0.0f;
+            System.out.println("R X collision. pos x = " + position.x);
         }
     }
     public void render() {

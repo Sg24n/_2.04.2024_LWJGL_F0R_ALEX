@@ -32,8 +32,8 @@ public class LevelManager {
 
 
     //Границы окна
-    public static int width;
-    public static int height;
+    //public static int width;
+    //public static int height;
 
     //Read file
     private List<String> readLinesFromFile(String filePath) {
@@ -76,11 +76,11 @@ public class LevelManager {
         return levelData;
     }
 
-    public void loadLevel(String levelName){
+    public void loadLevel(String levelName, int width, int height){
         String filePath = "Levels/" + levelName + ".txt";
         Racket racket = Factorys.RacketFactory.createRacket(width,height);
         Ball ball = Factorys.BallFactory.createBall(width,height);
-        addBlockForLevel(1,filePath);
+        addBlockForLevel(1,filePath, width, height);
     }
 
     
@@ -89,15 +89,8 @@ public class LevelManager {
 
 
     //Create Block
-    public void addBlockForLevel(int LVL, String filepath){
+    public void addBlockForLevel(int LVL, String filepath, int width, int height){
        blockManager.addBlockForLevel(width, LVL, loadLevelData(filepath));
     }
-
-    //Create ball
-    Ball ball = Factorys.BallFactory.createBall(width, height);
-
-
-
-
 
 }

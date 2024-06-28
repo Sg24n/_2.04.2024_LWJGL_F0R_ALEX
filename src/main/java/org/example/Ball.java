@@ -1,7 +1,5 @@
 package org.example;
 
-import org.lwjgl.assimp.AIVector2D;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public class Ball {
@@ -9,11 +7,9 @@ public class Ball {
     private float r, g, b;
     public Vector2D position, vVelocity;
 
-
-    public float x, y;
     public final float radius;
     public float velocityX, velocityY;
-
+    //На самом деле это ромб
     public Ball(int width, int height, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b) {
 
         this.position = new Vector2D(x, y);
@@ -53,7 +49,7 @@ public class Ball {
 
     public void render() {
         glColor3f(r, g, b);
-        int segments = 40;
+        int segments = 4;
         glBegin(GL_POLYGON);
         for (int i = 0; i < segments; i++) {
             //Тут математика какаято я не шарю просто переписал
