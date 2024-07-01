@@ -38,10 +38,11 @@ public class Racket implements BoundedObject{
         position.x += velocityX * deltaTime;
 
         //Проверка колизий x
-        if (position.x<= 0.0f || position.x >=480){
+        if (position.x<= 0.0f || (position.x+width) >=480){
             velocityX = 0.0f;
-            System.out.println("R X collision. pos x = " + position.x);
+            System.out.println("Racket X collision. pos x = " + position.x);
         }
+       // System.out.println(position.x + ".  " + position.y + ".  "+  position.x + width + ".  " + position.y + height);
     }
     public void render() {
         glColor3f(r, g, b); // Установка цвета блока
@@ -69,20 +70,32 @@ public class Racket implements BoundedObject{
 
 
     @Override
-    public float getLeft(){
+   /* public float getVertexLT(){
         return position.x;
     }
-    @Override
-    public float getRight(){
+    public float getVertexRT(){
         return position.x + width;
     }
-    @Override
-    public float getTop(){
+    public float getVertexLB(){
         return position.y;
     }
-    @Override
-    public float getBottom(){
+    public float getRB(){
         return position.y + height;
-    }
+    }*/
+    public float [][] getVertices(){
+        float [][] positionObj = new float[4][2];
+        positionObj[0][0] = position.x;
+        positionObj[0][1]= position.y;
 
+        positionObj[1][0]= position.x + width;
+        positionObj[1][1]=position.y;
+
+        positionObj[2][0]=position.y;
+        positionObj[2][1]=position.x;
+
+        positionObj[3][0]=position.x + width;
+        positionObj[3][1]=position.y + height;
+
+
+        return positionObj;}
 }

@@ -2,15 +2,15 @@ package org.example;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Ball {
-    private int width, height;
+public class Ball implements BoundedObject {
+    private int windowWidth, windowHeight;
     private float r, g, b;
     public Vector2D position, vVelocity;
 
     public final float radius;
     public float velocityX, velocityY;
     //На самом деле это ромб
-    public Ball(int width, int height, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b) {
+    public Ball(int windowWidth, int windowHeight, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b) {
 
         this.position = new Vector2D(x, y);
         this.vVelocity = new Vector2D(velocityX, velocityY);
@@ -21,8 +21,8 @@ public class Ball {
         this.r = r;
         this.g = g;
         this.b = b;
-        this.width = width;
-        this.height = height;
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
     }
 
     public void update(float deltaTime) {
@@ -33,17 +33,17 @@ public class Ball {
         if (position.x <= 0) {
             vVelocity.x = Math.abs(vVelocity.x);
             position.x = 1;
-        } else if (position.x + radius * 2 >= width) {
+        } else if (position.x + radius * 2 >= windowWidth) {
             vVelocity.x = -Math.abs(velocityX);
-            position.x = width - radius * 2 - 1;
+            position.x = windowWidth - radius * 2 - 1;
         }
 
         if (position.y <= 0) {
             vVelocity.y = Math.abs(vVelocity.y);
             position.y = 1;
-        } else if (position.y + radius * 2 >= height) {
+        } else if (position.y + radius * 2 >= windowHeight) {
             vVelocity.y = -Math.abs(vVelocity.y);
-            position.y = height - radius * 2 - 1;
+            position.y = windowHeight - radius * 2 - 1;
         }
     }
 
@@ -61,5 +61,22 @@ public class Ball {
         glEnd();
     }
 
+    @Override
+    public float [][] getVertices(){
+        float [][] positionObj = new float[4][2];
+        positionObj[0][0] = position.x;
+        positionObj[0][1]= position.y;
+
+        positionObj[1][0]= position.x + windowWidth;
+        positionObj[1][1]=position.y;
+
+        positionObj[2][0]=position.y;
+        positionObj[2][1]=position.x;
+
+        positionObj[3][0]=position.x + windowWidth;
+        positionObj[3][1]=position.y + windowHeight;
+
+    return positionObj;
+    }
 
 }

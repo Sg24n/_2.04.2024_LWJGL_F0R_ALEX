@@ -34,24 +34,43 @@ public class Block implements BoundedObject {
         glEnd();
     }
 
-    @Override
-    public float getLeft() {
+    /*@Override
+    public float getVertexLT() {
         return position.x;
     }
 
     @Override
-    public float getRight() {
+    public float getVertexRT() {
         return position.x + width;
     }
 
     @Override
-    public float getTop() {
+    public float getVertexLB() {
         return position.y;
     }
 
     @Override
-    public float getBottom() {
+    public float getRB() {
         return position.y + height;
-    }
+    }*/
 
+    @Override
+    public float [][] getVertices(){
+        float [][] positionObj = new float[4][2];
+        positionObj[0][0] = position.x;
+        positionObj[0][1]= position.y;
+
+        positionObj[1][0]= position.x + width;
+        positionObj[1][1]=position.y;
+
+        positionObj[2][0]=position.y;
+        positionObj[2][1]=position.x;
+
+        positionObj[3][0]=position.x + width;
+        positionObj[3][1]=position.y + height;
+
+
+
+        return positionObj;
+    }
 }
