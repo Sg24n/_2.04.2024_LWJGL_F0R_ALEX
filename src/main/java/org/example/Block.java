@@ -73,4 +73,23 @@ public class Block implements BoundedObject {
 
         return positionObj;
     }
+
+    public Point getTL(){
+        Point point = new Point(position.x,position.y);
+        return point;
+    }
+    public Point getTR(){
+        Point point = new Point(position.x + width,position.y);
+        return point;
+    }
+    public Point getBL(){
+        Point point = new Point(position.x,position.y + height);
+        return point;
+    }
+    public Point getBR(){
+        Point point = new Point(position.x + width,position.y + height);
+        return point;
+    }
+
+
 }

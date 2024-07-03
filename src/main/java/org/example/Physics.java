@@ -10,13 +10,9 @@ public class Physics {
         return deltaTime;
     }
     public static boolean checkCollision(Ball ball, BoundedObject object) {
-        float ballLeft = ball.position.x - ball.radius;
-        float ballRight = ball.position.x + ball.radius;
-        float ballTop = ball.position.y - ball.radius;
-        float ballBottom = ball.position.y + ball.radius;
 
-        float [][] ballLocal = ball.getVertices();
-        float [][] objLocal = object.getVertices();
+    //    float [][] ballLocal = ball.getVertices();
+    //    float [][] objLocal = object.getVertices();
 
         /*
         	1.	Определение координат прямоугольников: Убедитесь, что у каждого прямоугольника есть четыре определенные точки. Обычно для простоты достаточно знать левую верхнюю точку (x1, y1) и правую нижнюю точку (x2, y2).
@@ -28,9 +24,16 @@ public class Physics {
 	•	Верхняя сторона A находится ниже нижней стороны B.
     В коде это может быть выражено следующим образом:*/
 
-      //  ReactOnCollision(ball, objLocal);
+            if(ball.getTop().isBetween(object.getBL(), object.getBR())){System.out.println("Ball Top coll");return true;}
+            if(ball.getRight().isBetween(object.getTL(),object.getBL())){System.out.println("Ball Right coll");return true;}
+            if(ball.getBottom().isBetween(object.getTL(), object.getTR())){System.out.println("Ball Bottom coll");return true;}
+            if (ball.getLeft().isBetween(object.getTR(), object.getBR())){System.out.println("Ball Left coll");return true;}
+            return false;
 
-        return !(ballLocal[3][0] < objLocal[0][0] || ballLocal[0][0] > objLocal[3][0] || ballLocal[3][1] < objLocal[0][1] || ballLocal[0][1] > objLocal[3][1]);    }
+        //return !(ballLocal[2][0] < objLocal[0][0] || ballLocal[0][0] > objLocal[2][0] || ballLocal[3][1] < objLocal[0][1] || ballLocal[0][1] > objLocal[3][1]);
+      //  return (ball.getBottom().isBetween(object.getTL(),object.getTR()) || ball.getTop().isBetween(object.getBL(), object.getBR()));
+
+    }
 
 
     // Обработка столкновения в зависимости от типа объекта

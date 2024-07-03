@@ -12,4 +12,9 @@ public interface BoundedObject {
     //x0 y0  v0    v1
     //       v2    v3    x480 y480
     float  [][] getVertices();
+    Point getTL();
+    Point getTR();
+    Point getBL();
+    Point getBR();
+
 }

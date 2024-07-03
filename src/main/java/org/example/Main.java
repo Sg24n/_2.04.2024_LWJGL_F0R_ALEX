@@ -38,7 +38,7 @@ public class Main {
         glLoadIdentity();
 
 
-        //Добавление блока шарика и missile
+        //Добавление шарика и missile
         Racket racket = Factorys.RacketFactory.createRacket(width, height);
         Ball ball = Factorys.BallFactory.createBall(width, height);
 

@@ -36,7 +36,7 @@ public static class BallFactory{
     public static Ball createBall(int width, int height){
         return new Ball(width, height,
                 width/2, height/2,
-                8.0f,
+                8,
                 120.0f, 160.0f,
                 0.5f, 0.7f,1.0f);
     }

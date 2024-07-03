@@ -2,12 +2,14 @@ package org.example;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Ball implements BoundedObject {
+public class Ball  {
     private int windowWidth, windowHeight;
     private float r, g, b;
+
     public Vector2D position, vVelocity;
 
     public final float radius;
+    //Значение на которое будет меняться полёт данного ромбовидного объекта в случае коллизии
     public float velocityX, velocityY;
     //На самом деле это ромб
     public Ball(int windowWidth, int windowHeight, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b) {
@@ -47,9 +49,10 @@ public class Ball implements BoundedObject {
         }
     }
 
+
+    int segments = 4;
     public void render() {
         glColor3f(r, g, b);
-        int segments = 4;
         glBegin(GL_POLYGON);
         for (int i = 0; i < segments; i++) {
             //Тут математика какаято я не шарю просто переписал
@@ -61,22 +64,45 @@ public class Ball implements BoundedObject {
         glEnd();
     }
 
-    @Override
+   // @Override
     public float [][] getVertices(){
         float [][] positionObj = new float[4][2];
+
+        //Top
         positionObj[0][0] = position.x;
-        positionObj[0][1]= position.y;
+        positionObj[0][1]= position.y + radius;
 
-        positionObj[1][0]= position.x + windowWidth;
+        //Right
+        positionObj[1][0]= position.x + radius;
         positionObj[1][1]=position.y;
+        //Bottom
+        positionObj[2][0]=position.x;
+        positionObj[2][1]=position.y - radius;
+        //Left
+        positionObj[3][0]=position.x - radius;
+        positionObj[3][1]=position.y;
 
-        positionObj[2][0]=position.y;
-        positionObj[2][1]=position.x;
-
-        positionObj[3][0]=position.x + windowWidth;
-        positionObj[3][1]=position.y + windowHeight;
 
     return positionObj;
     }
+
+
+        public Point getTop(){
+         Point point = new Point(position.x,position.y + radius);
+         return point;
+        }
+        public Point getRight(){
+            Point point = new Point(position.x + radius,position.y);
+            return point;
+        }
+        public Point getBottom(){
+            Point point = new Point(position.x,position.y - radius);
+            return point;
+        }
+        public Point getLeft(){
+            Point point = new Point(position.x - radius,position.y);
+            return point;
+        }
+
 
 }
