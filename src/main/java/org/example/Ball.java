@@ -3,14 +3,12 @@ package org.example;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Ball  {
-    private int windowWidth, windowHeight;
+    public int windowWidth, windowHeight;
     private float r, g, b;
 
     public Vector2D position, vVelocity;
 
     public final float radius;
-    //Значение на которое будет меняться полёт данного ромбовидного объекта в случае коллизии
-    public float velocityX, velocityY;
     //На самом деле это ромб
     public Ball(int windowWidth, int windowHeight, float x, float y, float radius, float velocityX, float velocityY, float r, float g, float b) {
 
@@ -18,8 +16,7 @@ public class Ball  {
         this.vVelocity = new Vector2D(velocityX, velocityY);
 
         this.radius = radius;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
+
         this.r = r;
         this.g = g;
         this.b = b;
@@ -36,7 +33,7 @@ public class Ball  {
             vVelocity.x = Math.abs(vVelocity.x);
             position.x = 1;
         } else if (position.x + radius * 2 >= windowWidth) {
-            vVelocity.x = -Math.abs(velocityX);
+            vVelocity.x = -Math.abs(vVelocity.x);
             position.x = windowWidth - radius * 2 - 1;
         }
 
@@ -50,7 +47,7 @@ public class Ball  {
     }
 
 
-    int segments = 4;
+    int segments = 40;
     public void render() {
         glColor3f(r, g, b);
         glBegin(GL_POLYGON);

@@ -11,27 +11,11 @@ public class Physics {
     }
     public static boolean checkCollision(Ball ball, BoundedObject object) {
 
-    //    float [][] ballLocal = ball.getVertices();
-    //    float [][] objLocal = object.getVertices();
-
-        /*
-        	1.	Определение координат прямоугольников: Убедитесь, что у каждого прямоугольника есть четыре определенные точки. Обычно для простоты достаточно знать левую верхнюю точку (x1, y1) и правую нижнюю точку (x2, y2).
-	2.	Проверка пересечения двух прямоугольников: Чтобы проверить, пересекаются ли два прямоугольника, можно использовать следующую логику:
-	•	Прямоугольник A не пересекается с Прямоугольником B, если одно из следующих условий истинно:
-	•	Правая сторона A находится левее левой стороны B.
-	•	Левая сторона A находится правее правой стороны B.
-	•	Нижняя сторона A находится выше верхней стороны B.
-	•	Верхняя сторона A находится ниже нижней стороны B.
-    В коде это может быть выражено следующим образом:*/
-
             if(ball.getTop().isBetween(object.getBL(), object.getBR())){System.out.println("Ball Top coll");return true;}
             if(ball.getRight().isBetween(object.getTL(),object.getBL())){System.out.println("Ball Right coll");return true;}
             if(ball.getBottom().isBetween(object.getTL(), object.getTR())){System.out.println("Ball Bottom coll");return true;}
             if (ball.getLeft().isBetween(object.getTR(), object.getBR())){System.out.println("Ball Left coll");return true;}
             return false;
-
-        //return !(ballLocal[2][0] < objLocal[0][0] || ballLocal[0][0] > objLocal[2][0] || ballLocal[3][1] < objLocal[0][1] || ballLocal[0][1] > objLocal[3][1]);
-      //  return (ball.getBottom().isBetween(object.getTL(),object.getTR()) || ball.getTop().isBetween(object.getBL(), object.getBR()));
 
     }
 
@@ -42,12 +26,7 @@ public class Physics {
         if (collObject instanceof Racket) {
             Racket racket = (Racket) collObject;
             // Reaction on collision with MiSsLe
-            // Reaction on collision with block
-            if (Math.abs(ball.vVelocity.y) < 3f) {
                 ball.vVelocity.y = -ball.vVelocity.y;
-            } else {
-                ball.vVelocity.y = -ball.vVelocity.y;
-            }
 
         } else if (collObject instanceof Block) {
             // Reaction on collision with block

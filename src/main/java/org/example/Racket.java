@@ -55,33 +55,26 @@ public class Racket implements BoundedObject{
     }
 
     public void moveLeft(){
-        //velocityX = -speed;
-        targetVelocityX = -speed;
+
+        if(getTL().isOnScreen()){
+            targetVelocityX = -speed;
+        } else {
+            velocityX = 0;}
 
     }
     public void moveRight(){
-        //velocityX = speed;
-        targetVelocityX = speed;
+        if(getTR().isOnScreen()){
+            targetVelocityX = speed;
+        } else {
+            velocityX = 0;}
     }
     public void stop(){
-        //velocityX= 0.0f;
         targetVelocityX = 0.0f;
     }
 
 
     @Override
-   /* public float getVertexLT(){
-        return position.x;
-    }
-    public float getVertexRT(){
-        return position.x + width;
-    }
-    public float getVertexLB(){
-        return position.y;
-    }
-    public float getRB(){
-        return position.y + height;
-    }*/
+
     public float [][] getVertices(){
         float [][] positionObj = new float[4][2];
         positionObj[0][0] = position.x;
