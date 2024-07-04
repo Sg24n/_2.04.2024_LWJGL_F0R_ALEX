@@ -47,7 +47,7 @@ public class Ball  {
     }
 
 
-    int segments = 40;
+    int segments = 4;
     public void render() {
         glColor3f(r, g, b);
         glBegin(GL_POLYGON);

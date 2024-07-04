@@ -37,12 +37,15 @@ public class Racket implements BoundedObject{
         }
         position.x += velocityX * deltaTime;
 
+
+
         //Проверка колизий x
-        if (position.x<= 0.0f || (position.x+width) >=480){
-            velocityX = 0.0f;
-            System.out.println("Racket X collision. pos x = " + position.x);
-        }
-       // System.out.println(position.x + ".  " + position.y + ".  "+  position.x + width + ".  " + position.y + height);
+
+        //Остановка в отрицательную, и приём движения только в +
+            position.x = Math.max(0, Math.min(480-width, position.x));
+
+
+
     }
     public void render() {
         glColor3f(r, g, b); // Установка цвета блока
@@ -56,17 +59,14 @@ public class Racket implements BoundedObject{
 
     public void moveLeft(){
 
-        if(getTL().isOnScreen()){
+
             targetVelocityX = -speed;
-        } else {
-            velocityX = 0;}
+
 
     }
     public void moveRight(){
-        if(getTR().isOnScreen()){
             targetVelocityX = speed;
-        } else {
-            velocityX = 0;}
+
     }
     public void stop(){
         targetVelocityX = 0.0f;

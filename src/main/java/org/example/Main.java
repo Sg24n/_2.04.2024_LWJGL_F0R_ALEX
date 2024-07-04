@@ -57,14 +57,23 @@ public class Main {
             }
         });
 
+        int localI = 0;
+        int megaI = 0;
         levelManager.loadLevel("level1", width, height);
         //Main loop
         while (!glfwWindowShouldClose(mainWindow)) {
             //Цвет фона
+            megaI++;
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             float delta = physics.deltaTime();
+            System.out.println(megaI + ". LocalI " + localI);
+
             if (physics.checkCollision(ball, racket)) {
-                physics.ReactOnCollision(ball, racket);
+                if(megaI - localI > 30){
+                    physics.ReactOnCollision(ball, racket);
+                }
+                localI = megaI;
+
             }
             racket.update(delta);
             racket.render();
