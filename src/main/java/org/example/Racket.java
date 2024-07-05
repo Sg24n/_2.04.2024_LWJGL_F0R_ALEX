@@ -103,11 +103,11 @@ public class Racket implements BoundedObject{
             return point;
         }
         public Point getBL(){
-            Point point = new Point(position.x,position.y + height);
+            Point point = new Point(position.x,(position.y + height));
             return point;
         }
         public Point getBR(){
-            Point point = new Point(position.x + width,position.y + height);
+            Point point = new Point(position.x + width,(position.y + height));
             return point;
         }
 

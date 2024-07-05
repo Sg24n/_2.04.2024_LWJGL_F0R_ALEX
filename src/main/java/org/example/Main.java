@@ -66,15 +66,16 @@ public class Main {
             megaI++;
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             float delta = physics.deltaTime();
-            System.out.println(megaI + ". LocalI " + localI);
+          //  System.out.println(megaI + ". LocalI " + localI);
+            boolean a = physics.checkCollision(ball, racket);
 
-            if (physics.checkCollision(ball, racket)) {
+           /* if (physics.checkCollision(ball, racket)) {
                 if(megaI - localI > 30){
-                    physics.ReactOnCollision(ball, racket);
+               //     physics.ReactOnCollision(ball, racket);
                 }
                 localI = megaI;
 
-            }
+            }*/
             racket.update(delta);
             racket.render();
 

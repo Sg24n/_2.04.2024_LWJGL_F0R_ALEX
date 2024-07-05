@@ -29,20 +29,20 @@ public class Ball  {
         this.position = this.position.add(this.vVelocity.multiply(deltaTime));
 
         //Проверка колизий x and y
-        if (position.x <= 0) {
+        if (position.x - radius <= 0) {
             vVelocity.x = Math.abs(vVelocity.x);
-            position.x = 1;
-        } else if (position.x + radius * 2 >= windowWidth) {
+          //  position.x = 1;
+        } else if (position.x + radius >= windowWidth) {
             vVelocity.x = -Math.abs(vVelocity.x);
-            position.x = windowWidth - radius * 2 - 1;
+          //  position.x = windowWidth - radius * 2 - 1;
         }
 
-        if (position.y <= 0) {
+        if (position.y - radius <= 0) {
             vVelocity.y = Math.abs(vVelocity.y);
-            position.y = 1;
-        } else if (position.y + radius * 2 >= windowHeight) {
+           // position.y = 1;
+        } else if (position.y + radius >= windowHeight) {
             vVelocity.y = -Math.abs(vVelocity.y);
-            position.y = windowHeight - radius * 2 - 1;
+            //position.y = windowHeight - radius * 2 - 1;
         }
     }
 
@@ -85,19 +85,19 @@ public class Ball  {
 
 
         public Point getTop(){
-         Point point = new Point(position.x,position.y + radius);
+         Point point = new Point(position.x,(position.y - radius));
          return point;
         }
         public Point getRight(){
-            Point point = new Point(position.x + radius,position.y);
+            Point point = new Point((position.x + radius),position.y);
             return point;
         }
         public Point getBottom(){
-            Point point = new Point(position.x,position.y - radius);
+            Point point = new Point(position.x,(position.y + radius));
             return point;
         }
         public Point getLeft(){
-            Point point = new Point(position.x - radius,position.y);
+            Point point = new Point((position.x - radius),position.y);
             return point;
         }
 

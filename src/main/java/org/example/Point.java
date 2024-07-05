@@ -22,6 +22,23 @@ public class Point {
                 && Math.abs(this.y - other1.y) < epsilon && Math.abs(this.y - other2.y) < epsilon
                 || this.y > other1.y && this.y < other2.y
                 && Math.abs(this.x - other1.x) < epsilon && Math.abs(this.x - other2.x) < epsilon;
+
+        //По диагонали
+        /*return this.x > other1.x && this.x < other2.x
+                && this.y > other1.y && this.y < other2.y;*/
+                /*
+                || this.y > other1.y && this.y < other2.y
+                && Math.abs(this.x - other1.x) < epsilon && Math.abs(this.x - other2.x) < epsilon;*/
+    }
+
+    public boolean isBetweenDiagonal(Point other1, Point other2){
+
+        //По диагонали
+        return this.x > other1.x && this.x < other2.x
+                && this.y > other1.y && this.y < other2.y;
+                /*
+                || this.y > other1.y && this.y < other2.y
+                && Math.abs(this.x - other1.x) < epsilon && Math.abs(this.x - other2.x) < epsilon;*/
     }
 
     public boolean isOnScreen(){

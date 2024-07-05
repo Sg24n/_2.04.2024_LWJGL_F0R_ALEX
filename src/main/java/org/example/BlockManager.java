@@ -26,7 +26,7 @@ public class BlockManager {
             if (physics.checkCollision(ball, block)){
                 System.out.println("UPDATE BLOCK Collision is true");
 
-                physics.ReactOnCollision(ball, block);
+               // physics.ReactOnCollision(ball, block);
                 blockIterator.remove();
                 break;
             }
