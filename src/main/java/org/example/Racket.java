@@ -5,7 +5,7 @@ public class Racket implements BoundedObject{
 
    // public float x, y;
     public final float width, height;
-    private float velocityX = 0.0f;
+    public float velocityX = 0.0f;
     private float targetVelocityX = 0.0f; // Целевая скорость
 
     private final float speed = 400.0f;

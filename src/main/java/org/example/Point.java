@@ -2,7 +2,7 @@ package org.example;
 
 public class Point {
     private float x, y;
-    float epsilon = 1f;
+    float epsilon = 3f;
     private int width = 480;
    private int height = 480;
    public Point(float x,float y){
