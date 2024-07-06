@@ -27,16 +27,23 @@ public class Physics {
             if(object.getBL().isBetweenDiagonal(ball.getTop(),ball.getRight())){System.out.println("Ball RT coll");ball.vVelocity.x = -ball.vVelocity.x;return true;} //x налево
             if(object.getBR().isBetweenDiagonal(ball.getTop(),ball.getLeft())){System.out.println("Ball LT coll");ball.vVelocity.x = Math.abs(ball.vVelocity.x);return true;} //x направо
 
-            if(ball.getTop().isBetween(object.getBL(), object.getBR())){System.out.println("Ball Top coll"); ball.vVelocity.y = Math.abs(ball.vVelocity.y); return true;}
+            if(ball.getTop().isBetween(object.getBL(), object.getBR())){System.out.println("Ball Top coll");
+                ball.vVelocity.y = Math.abs(ball.vVelocity.y);
+
+                return true;}
             if(ball.getBottom().isBetween(object.getTL(), object.getTR())){System.out.println("Ball Bottom coll");ball.vVelocity.y = -Math.abs(ball.vVelocity.y);return true;}
 
 
             // TODO Такая же херня должна быть с верхней и нижней точкой
-            if(ball.getRight().isBetween(object.getTL(),object.getBL())){System.out.println("Ball Right coll");
+            if(ball.getRight().isBetween(object.getTL(),object.getBL())
+            ||ball.getTop().isBetween(object.getTL(), object.getBL())
+            ||ball.getBottom().isBetween(object.getTL(), object.getBL())){System.out.println("Ball Right Half coll");
                 ball.vVelocity.x = -Math.abs(ball.vVelocity.x);
                 ReactOnCollision(ball,object);
                 return true;}
-            if (ball.getLeft().isBetween(object.getTR(), object.getBR())){System.out.println("Ball Left coll");
+            if (ball.getLeft().isBetween(object.getTR(), object.getBR())
+            ||ball.getTop().isBetween(object.getTR(), object.getBR())
+            ||ball.getBottom().isBetween(object.getTR(), object.getBR())){System.out.println("Ball Left Half coll");
                 ball.vVelocity.x = Math.abs(ball.vVelocity.x);
                 ReactOnCollision(ball,object);
                 return true;}
